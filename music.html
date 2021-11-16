@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+      <div class="main_div">
+           <div class="music_container">
+               <h2 id="title">
+                   nau lakhey tara
+               </h2>
+               <h3 id="artist">Bipul cheetri</h3>
+            <div class="img_container">
+                 <img src="images\1.jpg" alt="">
+              </div>
+              <audio src="music\1.mp3" ></audio>
+                
+              <div class="music_controls">
+                <i class="fas fa-backward" id="prev" title="previuos"></i>
+                <i class="fas fa-play main_button" id="play" title="play"></i>
+                <i class="fas fa-forward" id="next" title="next"></i>
+              </div>
+           </div>
+      </div>
+       
+      <Script>
+          const music = document.querySelector("audio");
+          const img = document.querySelector('img');
+          const play =document.getElementById('play');
+          const artist =document.getElementById('artist');
+          const title =document.getElementById("title");
+          const prev =document.getElementById('prev');
+          const next =document.getElementById('next');
+
+
+          const songs = [
+              {
+                  name: "1",
+                  title: "nau lakhey tara",
+                  artist: "Bipul cheetri",
+              },
+              {
+                  name: "2",
+                  title: "Malai bachauna",
+                  artist: "yodda",
+              },
+              {
+                  name: "3",
+                  title: "birsayko chaina",
+                  artist: "swapna suman",
+              },
+
+              {
+                  name: "4",
+                  title: "Adhuro",
+                  artist: "Prabesh shresta",
+              },
+            
+              {
+                  name: "5.",
+                  title: "maya Naruwau",
+                  artist: "Ayush Gauchan",
+              },
+
+
+
+          ]
+          
+
+          isPlaying = false;
+          //for playing function
+        const playMusic = () =>{
+              
+              isPlaying=true;
+              music.play(); 
+              play.classList.replace("fa-play", "fa-pause");
+              img.classList.add("anime");
+          };
+           
+          //for pause function
+          const pauseMusic = ()=>{
+              isPlaying= false;
+              music.pause();
+              play.classList.replace("fa-pause","fa-play");
+              img.classList.remove("anime");
+          };
+        
+          play.addEventListener('click', () =>{
+              if(isPlaying){
+                  pauseMusic();
+              }else{
+                  playMusic();
+              }
+          });
+
+          //changing Music Data
+
+          const loadSong =(songs)=>{
+              title.textContent = songs.title;
+              artist.textContent = songs.artist;
+              music.src = "music/" + songs.name + ".mp3";
+              img.src= "images/" + songs.name + ".jpg"
+          }
+
+          songsIndex = 0;
+          // loadSong(songs[2]);
+         
+           const nextSongs = () => {
+               songsIndex = (songsIndex + 1) % songs.length;
+               loadSong(songs[songsIndex]);
+               playMusic();
+           };
+
+           const prevSongs = () => {
+               songsIndex = (songsIndex - 1 +  songs.length) % songs.length;
+               loadSong(songs[songsIndex]);
+               playMusic();
+           };
+            
+           next.addEventListener("click", nextSongs);
+           prev.addEventListener("click", prevSongs);
+
+      </Script>
+
+</body>
+</html>
